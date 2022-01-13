@@ -1,3 +1,3 @@
-## Leetcode Study plan solutions.
+## Leetcode Problems solutions.
 
-To practice - https://leetcode.com/study-plan/
+To practice - https://leetcode.com/
