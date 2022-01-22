@@ -1,18 +1,17 @@
 class Solution {
 public:
     int balancedStringSplit(string s) {
-    int count=0,r=0,l=0;
+    int res=0,count=0;
         for(char c:s){
             if(c=='L'){
-                l++;
-            }else{
-                r++;
-            }
-            if(l==r){
                 count++;
-                r=l=0;
+            }else{
+                count--;
+            }
+            if(count==0){
+                res++;
             }
         }
-    return count;
+    return res;
     }
 };
