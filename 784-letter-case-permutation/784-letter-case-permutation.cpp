@@ -1,16 +1,15 @@
 class Solution {
-    void backtrack(string &s, int i, vector<string> &res) {
-        if (i == s.size()) {
-            res.push_back(s);
-            return;
-        }
-        backtrack(s, i + 1, res);
-        if (isalpha(s[i])) {
-            // toggle case
-            s[i] ^= (1 << 5);
-            backtrack(s, i + 1, res);
-        }
+void backtrack(string &s,int l,vector<string> &res){
+    if(l==s.size()){
+        res.push_back(s);
+        return;
     }
+    backtrack(s,l+1,res);
+    if(isalpha(s[l])){
+        s[l]^=32;
+        backtrack(s,l+1,res);
+    }
+}
 public:
     vector<string> letterCasePermutation(string S) {
         vector<string> res;
