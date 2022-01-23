@@ -1,20 +1,26 @@
 class Solution {
 public:
-vector<vector<int>> combine(int n, int k) {
-    vector<vector<int>> res;
-    vector<int> temp;
-    backtrack(1,k,res,temp,n);
-    return res;
-}
-void backtrack(int i,int k,vector<vector<int>> &res,vector<int> temp,int n){
-    if(temp.size()==k){
-        res.push_back(temp);
-        return;
+    vector<vector<int>> ans;
+    
+    void helper(int idx, int k,vector<int>&current,int n)
+    {
+        if(current.size()==k)   
+        {
+            ans.push_back(current);
+            return;
+        }
+        
+        for(int i=idx;i<n+1;i++)
+        {
+            current.push_back(i); 
+            helper(i+1,k,current,n);
+            current.pop_back(); 
+        }
     }
-    for(int j=i;j<n+1;j++){
-        temp.push_back(j);
-        backtrack(j+1,k,res,temp,n);
-        temp.pop_back();
+    
+    vector<vector<int>> combine(int n, int k) {
+        vector<int>current;
+        helper(1,k,current,n);
+        return ans;
     }
-}
 };
