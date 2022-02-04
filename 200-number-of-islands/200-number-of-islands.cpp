@@ -1,6 +1,6 @@
 class Solution {
 public:
-    void dfs(vector<vector<char>>& grid,vector<vector<int>> &visited,int r,int c,int m,int n)     {      
+    void explore(vector<vector<char>>& grid,vector<vector<int>> &visited,int r,int c,int m,int n)     {      
         visited[r][c]=true;
       
         int dx[]={1,-1,0,0};
@@ -9,7 +9,7 @@ public:
             int nx=r+dx[k];
             int ny=c+dy[k];
             if(nx>=0 && nx<m && ny>=0 && ny<n && grid[nx][ny]=='1' && !visited[nx][ny]){
-                dfs(grid,visited,nx,ny,m,n);
+                explore(grid,visited,nx,ny,m,n);
             }
         }
     }
@@ -19,7 +19,7 @@ public:
         vector<vector<int>> visited(m,vector<int>(n,0));
         for(int i=0;i<m;i++){
             for(int j=0;j<n;j++){
-            if(grid[i][j]=='1' && !visited[i][j])dfs(grid,visited,i,j,m,n),count++;
+            if(grid[i][j]=='1' && !visited[i][j])explore(grid,visited,i,j,m,n),count++;
             }
         }
         return count;
