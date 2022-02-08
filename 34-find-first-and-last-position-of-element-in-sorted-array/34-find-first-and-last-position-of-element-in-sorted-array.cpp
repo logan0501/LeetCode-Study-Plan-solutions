@@ -14,6 +14,7 @@ public:
             }else if(arr[mid]>target){r=mid-1;}
             else l=mid+1;
         }
+         if(res.empty())return{-1,-1};
         l=0;
         r=arr.size()-1;
         while(l<=r){
@@ -24,7 +25,7 @@ public:
             }else if(arr[mid]>target){r=mid-1;}
             else l=mid+1;
         }
-        if(res.empty())res={-1,-1};
+      
         return res;
     }
 };
