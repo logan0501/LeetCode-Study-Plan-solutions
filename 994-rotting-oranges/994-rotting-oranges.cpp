@@ -1,59 +1,31 @@
 class Solution {
 public:
     int orangesRotting(vector<vector<int>>& grid) {
-             int n = grid.size();
-        int m = grid[0].size();
-        
-        queue<pair<int,int>> q,ch;
-        
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                if(grid[i][j] == 2){
-                    q.push({i,j});
-                }
+int ct=0, res=-1;
+        queue<vector<int>> q;
+        vector<vector<int>> dir={{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+        for(int i=0;i<grid.size();i++) {
+            for(int j=0;j<grid[0].size();j++) {
+                if(grid[i][j]>0) ct++;
+                if(grid[i][j]==2) q.push({i, j});
             }
         }
-        
-        int t=0;
-        
-        while(!q.empty() || !ch.empty()){
-            
-            while(!q.empty()){
-                pair<int,int> p = q.front();
+        while(!q.empty()) {
+            res++;
+            int size=q.size();
+            for(int k=0;k<size;k++) {
+                vector<int> cur=q.front();
+                ct--;
                 q.pop();
-                
-                if(p.second+1<m && grid[p.first][p.second + 1]==1){
-                    ch.push({p.first,p.second+1});
-                    grid[p.first][p.second + 1] = 2;
-                }
-                if(p.second-1>=0 && grid[p.first][p.second - 1]==1){
-                    ch.push({p.first,p.second-1});
-                    grid[p.first][p.second - 1] = 2;
-                }
-                if(p.first+1<n && grid[p.first+1][p.second]==1){
-                    ch.push({p.first+1,p.second});
-                    grid[p.first+1][p.second] = 2;
-                }
-                if(p.first-1>=0 && grid[p.first-1][p.second]==1){
-                    ch.push({p.first-1,p.second});
-                    grid[p.first-1][p.second] = 2;
-                }
-            }
-            
-            queue<pair<int,int>> temp;
-            q = ch;
-            ch = temp;
-            
-            if(!q.empty()) t++;
-        }
-        
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                if(grid[i][j] == 1){
-                    return -1;
+                for(int i=0;i<4;i++) {
+                    int x=cur[0]+dir[i][0], y=cur[1]+dir[i][1];
+                    if(x>=grid.size()||x<0||y>=grid[0].size()||y<0||grid[x][y]!=1) continue;
+                    grid[x][y]=2;
+                    q.push({x, y});
                 }
             }
         }
-        return t;  
+        if(ct==0) return max(0, res);
+        return -1;
     }
 };
