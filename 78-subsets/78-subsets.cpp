@@ -1,17 +1,19 @@
 class Solution {
 public:
-    vector<vector<int>> powerset;
-    vector<int> subset;
-    void backtrack(vector<int> &nums,int start){
-        powerset.push_back(subset);
-        for(int i=start;i<nums.size();i++){
-            subset.push_back(nums[i]);
-            backtrack(nums,i+1);
-            subset.pop_back();
-        }
-    }
+vector<vector<int>> res;
+void generate(vector<int> &v,int i,vector<int> &cur){
+	if(i==v.size()){
+		res.push_back(cur);
+		return;
+	}
+	cur.push_back(v[i]);
+	generate(v,i+1,cur);
+	cur.pop_back();
+	generate(v,i+1,cur);
+}
     vector<vector<int>> subsets(vector<int>& nums) {
-        backtrack(nums,0);
-        return powerset;
+        vector<int> cur;
+        generate(nums,0,cur);
+        return res;
     }
 };
