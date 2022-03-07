@@ -1,19 +1,19 @@
 class Solution {
 public:
-vector<vector<int>> permute(vector<int> num){
-    vector<vector<int>> res;
-    rec(res,0,num);
-    return res;
-}
-void rec(vector<vector<int>> &res,int l,vector<int> num){
-    if(l==num.size()-1){
-        res.push_back(num);
+vector<vector<int>> res;
+void helper(int j,vector<int> nums){
+    if(j==nums.size()-1){
+        res.push_back(nums);
         return;
     }
-    for(int i=l;i<num.size();i++){
-        swap(num[l],num[i]);
-        rec(res,l+1,num);
-        swap(num[l],num[i]);
+    for(int i=j;i<nums.size();i++){
+        swap(nums[j],nums[i]);
+        helper(j+1,nums);
+        swap(nums[j],nums[i]);
     }
+}
+vector<vector<int>> permute(vector<int>& nums) {
+    helper(0,nums);
+    return res;
 }
 };
