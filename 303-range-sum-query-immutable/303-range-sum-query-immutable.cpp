@@ -13,6 +13,9 @@ public:
         if(left==0)return (*presum)[right];
         return (*presum)[right]-(*presum)[left-1];
     }
+    ~NumArray(){
+        delete presum;
+    }
 };
 
 /**
