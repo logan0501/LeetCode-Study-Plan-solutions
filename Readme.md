@@ -2,4 +2,4 @@
 
 To practice - https://leetcode.com/
 
-c++ solutions only :)
+c++ solutions only :).
