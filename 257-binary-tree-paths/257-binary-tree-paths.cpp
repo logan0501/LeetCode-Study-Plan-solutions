@@ -13,12 +13,10 @@ class Solution {
 public:
 vector<string> res;
 void helper(TreeNode* root,string str){
-
-	if(!root->left && !root->right){
+    if(!root->left && !root->right){
         str+=to_string(root->val);
         res.push_back(str);return;}
 	if(root->left){
-        cout<<"l"<<endl;
         helper(root->left,str+to_string(root->val)+"->");
 	}
     if(root->right){
