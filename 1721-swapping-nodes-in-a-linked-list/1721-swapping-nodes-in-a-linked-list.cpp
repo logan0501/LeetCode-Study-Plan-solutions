@@ -17,7 +17,6 @@ public:
             fast=fast->next;
             k--;
         }
-        cout<<fast->val;
         kvals=fast;
         while(fast->next){
             fast=fast->next;
