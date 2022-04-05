@@ -1,12 +1,15 @@
 class Solution {
 public:
     string frequencySort(string s) {
-        int counts[256] = {0};
-        for (char ch : s)
-            ++counts[ch];
-        sort(s.begin(), s.end(), [&](char a, char b) { 
-            return counts[a] > counts[b] || (counts[a] == counts[b] && a < b); 
-        });
-        return s;        
+        unordered_map<char,int> hash;
+        priority_queue<pair<int,char>> heap;
+        string res="";
+        for(auto a:s)hash[a]++;
+        for(auto a:hash)heap.push({a.second,a.first});
+        while(heap.size()){
+            auto topp = heap.top();heap.pop();
+            res+=string(topp.first,topp.second);
+        }
+        return res;
     }
 };
