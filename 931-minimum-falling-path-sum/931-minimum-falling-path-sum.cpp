@@ -18,7 +18,6 @@ public:
         }
     }
     int res=INT_MAX;
-    for(auto a:mat[r-1])cout<<a<<endl;
     for(int i=0;i<c;i++){
         res=min(res,mat[r-1][i]);
     }
