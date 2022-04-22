@@ -1,6 +1,6 @@
 class MyHashMap {
+    const int size = 1e4;
 	vector<vector<pair<int, int>>> map;
-	const int size = 1e4;
     public:
     MyHashMap() {
 		map.resize(size);
@@ -16,7 +16,7 @@ class MyHashMap {
                 return;
             }
         }
-		row.push_back(make_pair(key, value));
+		row.push_back({key, value});
 	}
 
 	int get(int key) {
@@ -25,9 +25,8 @@ class MyHashMap {
 		for (auto iter = row.begin(); iter != row.end(); iter++)
 		{
 			if (iter->first == key)
-			{
 				return iter->second;
-			}
+			
 		}
 		return -1;
 	}
