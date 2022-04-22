@@ -1,43 +1,49 @@
-struct Node {
-public:
-    int key, val;
-    Node* next;
-    Node(int k, int v, Node* n) {
-        key = k;
-        val = v;
-        next = n;
-    }
-};
 class MyHashMap {
+	vector<vector<pair<int, int>>> map;
+	const int size = 10000;
 public:
-    const static int size = 19997;
-    const static int mult = 12582917;
-    Node* data[size];
-    int hash(int key) {
-        return (int)((long)key * mult % size);
-    }
-    void put(int key, int val) {
-        remove(key);
-        int h = hash(key);
-        Node* node = new Node(key, val, data[h]);
-        data[h] = node;
-    }    
-    int get(int key) {
-        int h = hash(key);
-        Node* node = data[h];
-        for (; node != NULL; node = node->next)
-            if (node->key == key) return node->val;
-        return -1;
-    }    
-    void remove(int key) {
-        int h = hash(key);
-        Node* node = data[h];
-        if (node == NULL) return;
-        if (node->key == key) data[h] = node->next;
-        else for (; node->next != NULL; node = node->next)
-            if (node->next->key == key) {
-                node->next = node->next->next;
+
+	MyHashMap() {
+		map.resize(size);
+	}
+
+	void put(int key, int value) {
+		int index = key % size;
+        vector<pair<int, int>> &row = map[index];
+        for(auto iter = row.begin(); iter != row.end(); iter++)
+        {
+            if(iter->first == key)
+            {
+                iter->second = value;
                 return;
             }
-    }
+        }
+		row.push_back(make_pair(key, value));
+	}
+
+	int get(int key) {
+		int index = key % size;
+        vector<pair<int, int>> &row = map[index];
+		for (auto iter = row.begin(); iter != row.end(); iter++)
+		{
+			if (iter->first == key)
+			{
+				return iter->second;
+			}
+		}
+		return -1;
+	}
+
+	void remove(int key) {
+		int index = key % size;
+        vector<pair<int, int>> &row = map[index];
+		for (auto iter = row.begin(); iter != row.end(); iter++)
+		{
+			if (iter->first == key)
+			{
+				row.erase(iter);
+                return;
+			}
+		}
+	}
 };
