@@ -1,6 +1,6 @@
 class MyHashMap {
 	vector<vector<pair<int, int>>> map;
-	const int size = 1e6;
+	const int size = 1e4;
     public:
     MyHashMap() {
 		map.resize(size);
