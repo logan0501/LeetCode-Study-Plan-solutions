@@ -1,13 +1,11 @@
 class MyHashMap {
 	vector<vector<pair<int, int>>> map;
-	const int size = 10000;
-public:
-
-	MyHashMap() {
+	const int size = 1e6;
+    public:
+    MyHashMap() {
 		map.resize(size);
 	}
-
-	void put(int key, int value) {
+    void put(int key, int value) {
 		int index = key % size;
         vector<pair<int, int>> &row = map[index];
         for(auto iter = row.begin(); iter != row.end(); iter++)
