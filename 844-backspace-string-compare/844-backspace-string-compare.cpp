@@ -1,7 +1,7 @@
 class Solution {
 public:
     bool backspaceCompare(string s, string t) {
-        int si=s.size()-1,ti=t.size()-1;
+               int si=s.size()-1,ti=t.size()-1;
         int sb=0,tb=0;
         while(si>=0 || ti>=0){
             if(si>=0 && s[si]=='#')si--,sb++;
@@ -11,6 +11,6 @@ public:
             else if(si<0 || ti<0 || s[si]!=t[ti])return false;
             else si--,ti--;
         }
-        return true;
+        return true; 
     }
 };
