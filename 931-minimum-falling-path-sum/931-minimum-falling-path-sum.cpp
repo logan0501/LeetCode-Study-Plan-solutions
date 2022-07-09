@@ -1,26 +1,20 @@
 class Solution {
 public:
-    int minFallingPathSum(vector<vector<int>>& mat) {
-    int r= mat.size(),c=mat[0].size();
-    for(int i=1;i<r;i++){
-        for(int j=0;j<c;j++){
-            int dx[]={-1,-1,-1};
-            int dy[]={0,-1,1};
-            int ans = INT_MAX;
-            for(int k=0;k<3;k++){
-                int xx = i+dx[k];
-                int yy = j+dy[k];
-                if(xx>=0 && xx<r && yy>=0 && yy<c){
-                    ans = min(ans,mat[xx][yy]);
-                }
-            }
-            mat[i][j]+=ans;
-        }
+vector<vector<int>> dp;
+int f(int i,int j,vector<vector<int>>& matrix){
+    if(j<0 || j>=matrix[0].size())return INT_MAX;
+    if(i==0)return matrix[i][j];   
+    if(dp[i][j]!=-1)return dp[i][j];
+    return dp[i][j]=matrix[i][j]+min(f(i-1,j-1,matrix),min(f(i-1,j,matrix),f(i-1,j+1,matrix)));
+}
+int minFallingPathSum(vector<vector<int>>& matrix) {
+    int minv=INT_MAX;
+    int m=matrix.size(),n=matrix[0].size();
+    dp.resize(m,vector<int>(n,-1));
+    for(int i=0;i<matrix[0].size();i++){
+       
+        minv=min(minv,f(matrix.size()-1,i,matrix));
     }
-    int res=INT_MAX;
-    for(int i=0;i<c;i++){
-        res=min(res,mat[r-1][i]);
-    }
-    return res;         
-    }
+    return minv;
+}
 };
