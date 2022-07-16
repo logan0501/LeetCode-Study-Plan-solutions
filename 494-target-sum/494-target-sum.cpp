@@ -17,6 +17,7 @@ int findTargetSumWays(vector<int>& nums, int target) {
     int totalSum = accumulate(nums.begin(),nums.end(),0);
     int tempsum = target+totalSum;
     if(tempsum%2==1)return 0;
+    if(tempsum<0)return 0;
     int s1=tempsum/2;
 
     return f(nums.size()-1,s1,nums);
