@@ -4,10 +4,9 @@ public:
             int res=0,mini=0;
     for(int i=1;i<prices.size();i++){
         if(prices[mini]<prices[i]){
-            res+=prices[i]-prices[mini];
-            mini=i;
+            res+=prices[i]-prices[mini];           
            
-        }else mini=i;
+        } mini=i;
     }
     return res;
     }
