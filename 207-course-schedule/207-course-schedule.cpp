@@ -20,6 +20,7 @@ public:
                 if(indeg[nbr]==0)q.push(nbr);
             }
         }
+        cout<<c<<endl;
         return c==n;
     }
 };
