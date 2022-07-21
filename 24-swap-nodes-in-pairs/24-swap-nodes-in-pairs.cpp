@@ -10,11 +10,22 @@
  */
 class Solution {
 public:
+    typedef ListNode Node;
     ListNode* swapPairs(ListNode* head) {
-        if(!head)return NULL;
-        if(!head->next)return head;
-        swap(head->val,head->next->val);
-        swapPairs(head->next->next);
+        if(!head || !head->next)return head;
+        Node* prev=head,*curr=head->next;
+        head=curr;
+        while(1){
+            Node* next = curr->next;
+            curr->next=prev;
+            if(!next || !next->next){
+                prev->next=next;
+                break;
+            }
+            prev->next=next->next;
+            prev=next;
+            curr=prev->next;
+        }
         return head;
     }
 };
