@@ -1,19 +1,21 @@
 class Solution {
 public:
-vector<vector<int>> ans;
-void helper(int idx,int k,vector<int> &cur,int n){
-	if(cur.size()==k){
-		ans.push_back(cur);return;
-	}
-	for(int i=idx;i<=n;i++){
-		cur.push_back(i);
-		helper(i+1,k,cur,n);
-		cur.pop_back();
-	}
-}
- vector<vector<int>> combine(int n, int k) {
- 	vector<int> cur;
-    helper(1,k,cur,n);
-    return ans;
- }
+    vector<vector<int>> res;
+    void helper(int i,int k,vector<int> &temp,int n){
+        
+        if(temp.size()==k){
+            res.push_back(temp);
+            return;
+        }
+        for(int j=i;j<=n;j++){
+            temp.push_back(j);
+            helper(j+1,k,temp,n);
+            temp.pop_back();
+        }
+    }
+    vector<vector<int>> combine(int n, int k) {
+        vector<int> tmep;
+        helper(1,k,tmep,n);
+        return res;
+    }
 };
