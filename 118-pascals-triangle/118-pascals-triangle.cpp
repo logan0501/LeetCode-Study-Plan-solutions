@@ -1,15 +1,23 @@
 class Solution {
 public:
-    vector<vector<int>> generate(int n) {
-    vector<vector<int>> res(n,vector<int>());
-    res[0].push_back({1});
-    for(int i=1;i<n;i++){
-        for(int j=0;j<=i;j++){
-            if(j>0 && j!=i)res[i].push_back(res[i-1][j]+res[i-1][j-1]);
-            else res[i].push_back(1);
-        }
+vector<vector<int>> res;
+vector<int> f(int i){
+    if(i==1){
+        res.push_back({1});
+        return {1};
     }
-    return res;
+    vector<int> prev=f(i-1);
+    vector<int> temp;
+   temp.push_back(1);
+    for(int i=1;i<prev.size();i++){
+        temp.push_back(prev[i]+prev[i-1]);
     }
-    
+    temp.push_back(1);
+    res.push_back(temp);
+    return temp;
+}
+vector<vector<int>> generate(int numRows) {
+     f(numRows);
+     return res;   
+}
 };
