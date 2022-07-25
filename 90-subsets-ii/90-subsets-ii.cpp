@@ -1,19 +1,23 @@
 class Solution {
 public:
-    vector<vector<int>> powerset;
-    vector<int> subset;
-    void backtrack(vector<int> &nums,int start){
-        powerset.push_back(subset);
-        for(int i =start;i<nums.size();i++){
-            if(i>start && nums[i]==nums[i-1])continue;
-            subset.push_back(nums[i]);
-            backtrack(nums,i+1);
-            subset.pop_back();
-        }
+set<vector<int>> res;
+void f(int i,vector<int> &nums,vector<int> &temp){     
+    if(i==nums.size()){
+        res.insert(temp);
+        return;
     }
-    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
-        sort(nums.begin(),nums.end());
-        backtrack(nums,0);
-        return powerset;
-    }
+   
+    temp.push_back(nums[i]);
+    f(i+1,nums,temp);
+    temp.pop_back();
+    f(i+1,nums,temp);
+}
+vector<vector<int>> subsetsWithDup(vector<int>& nums) {  
+    vector<int> temp;
+    sort(nums.begin(),nums.end());
+    f(0,nums,temp);
+    vector<vector<int>> ans;
+    for(auto a:res)ans.push_back(a);
+    return ans;
+}
 };
