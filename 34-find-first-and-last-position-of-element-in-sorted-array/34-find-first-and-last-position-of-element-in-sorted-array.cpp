@@ -1,31 +1,39 @@
 class Solution {
 public:
-    vector<int> searchRange(vector<int>& arr, int target) {
-        vector<int> res;
-        int l=0,r=arr.size()-1;
-        while(l<=r){
-            int mid = l+(r-l)/2;
-         
-            if(arr[mid]==target){
-              
-                if(mid==0 || arr[mid]!=arr[mid-1]){res.push_back(mid);break;}
-                else r=mid-1;
-               
-            }else if(arr[mid]>target){r=mid-1;}
-            else l=mid+1;
+    int helper1(int l,int h,vector<int> &nums,int target){
+    
+        while(l<=h){
+            int mid = l+(h-l)/2;
+            if(target==nums[mid]){
+                if(mid==0 || nums[mid]!=nums[mid-1])return mid;
+                else h=mid-1;
+            }else if(nums[mid]>target){
+                h=mid-1;
+            }else{
+                l=mid+1;
+            }
         }
-         if(res.empty())return{-1,-1};
-        l=0;
-        r=arr.size()-1;
-        while(l<=r){
-            int mid = l+(r-l)/2;
-            if(arr[mid]==target){
-                if(mid==arr.size()-1 || arr[mid]!=arr[mid+1]){res.push_back(mid);break;}
+        return -1;
+    }
+    int helper2(int l,int h,vector<int> &nums,int target){
+     
+        while(l<=h){
+               int mid = l+(h-l)/2;
+            if(target==nums[mid]){
+                if(mid==nums.size()-1 || nums[mid]!=nums[mid+1])return mid;
                 else l=mid+1;
-            }else if(arr[mid]>target){r=mid-1;}
-            else l=mid+1;
+            }else if(nums[mid]>target){
+                h=mid-1;
+            }else{
+                l=mid+1;
+            }
         }
-      
-        return res;
+        return -1;
+    }
+    vector<int> searchRange(vector<int>& nums, int target) {
+        int n =nums.size();
+        int f=helper1(0,n-1,nums,target);
+        int l=helper2(0,n-1,nums,target);
+        return {f,l};
     }
 };
