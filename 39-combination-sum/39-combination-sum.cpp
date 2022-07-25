@@ -1,18 +1,23 @@
 class Solution {
 public:
-    vector<vector<int>> combs;
-    vector<int> comb;
-    void backtrack(vector<int> &nums,int target,int start){
-        if(target==0){combs.push_back(comb);return;}
-        if(target<0)return;
-        for(int i=start;i<nums.size();i++){
-            comb.push_back(nums[i]);
-            backtrack(nums,target-nums[i],i);
-            comb.pop_back();
+vector<vector<int>> res;
+void f(int i,int sum,vector<int> &temp,vector<int> &arr){
+    if(i==arr.size()){
+        if(sum==0){
+            res.push_back(temp);            
         }
+        return;
     }
-    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-        backtrack(candidates,target,0);
-        return combs;
+    if(arr[i]<=sum){
+        temp.push_back(arr[i]);
+        f(i,sum-arr[i],temp,arr);
+        temp.pop_back();
     }
+    f(i+1,sum,temp,arr);
+}
+vector<vector<int>> combinationSum(vector<int>& arr, int target) {
+       vector<int> temp;
+       f(0,target,temp,arr) ;
+       return res;
+}
 };
