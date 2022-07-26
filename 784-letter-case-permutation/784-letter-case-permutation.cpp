@@ -1,19 +1,19 @@
 class Solution {
-void backtrack(string &s,int l,vector<string> &res){
-    if(l==s.size()){
-        res.push_back(s);
-        return;
-    }
-    backtrack(s,l+1,res);
-    if(isalpha(s[l])){
-        s[l]^=32;
-        backtrack(s,l+1,res);
-    }
-}
 public:
-    vector<string> letterCasePermutation(string S) {
-        vector<string> res;
-        backtrack(S, 0, res);
+    vector<string> res;
+    void f(int i,string s){
+        if(i==s.size()){res.push_back(s);return;}
+        if(isalpha(s[i])){
+            s[i]=tolower(s[i]);           
+            f(i+1,s);
+            s[i]=toupper(s[i]);            
+            f(i+1,s);
+        }else{
+            f(i+1,s);
+        }
+    }
+    vector<string> letterCasePermutation(string s) {
+        f(0,s);
         return res;
     }
 };
