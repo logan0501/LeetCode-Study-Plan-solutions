@@ -1,36 +1,36 @@
 class Solution {
 public:
-      bool DFS(vector<vector<char>>& board, string word, int i, int j, int n) {
-		//check if all the alphabets in the word is checked
-        if(n == word.size()) return true; 
-        
-		//check if i and j are out of bound or if the characters aren't equal
-        if(i < 0 || i >= board.size() || j < 0 || j >= board[i].size() || board[i][j] != word[n]) return false;
-        
-		//mark as visited 
-        board[i][j] = '0';
-        
-		//branch out in all 4 directions
-        bool status = DFS(board, word, i + 1, j, n + 1) ||  //down
-                        DFS(board, word, i, j + 1, n + 1) ||  //right
-                        DFS(board, word, i - 1, j, n + 1) ||  //up
-                        DFS(board, word, i, j - 1, n + 1);  //left
-        
-		//change the character back for other searches
-        board[i][j] = word[n];
-		
-        return status;
+    bool helper(int i,int j,int m,int n,vector<vector<char>> &board,string word,int idx){
+        if(idx==word.size()-1)return true;
+        char c = board[i][j];
+        board[i][j]='0';
+        int dx[]={-1,1,0,0};
+        int dy[]={0,0,-1,1};
+        for(int k=0;k<4;k++){
+            int xx = dx[k]+i;
+            int yy = dy[k]+j;
+            bool x1=xx>=0,y1=yy>=0;
+           
+            if(xx>=0 && yy>=0 && xx<m && yy<n && board[xx][yy]!='0' && word[idx+1]==board[xx][yy]){
+             
+                if(helper(xx,yy,m,n,board,word,idx+1))return true;
+            }
+        }
+        board[i][j]=c;
+        return false;
     }
-    
     bool exist(vector<vector<char>>& board, string word) {
-        if(word == "") return false;
+        if(word=="")return false;
+        int m=board.size(),n=board[0].size();
         
-        for(int i = 0; i < board.size(); i++) 
-            for(int j = 0; j < board[i].size(); j++) 
-				//check if the characters are equal then call DFS
-                if(board[i][j] == word[0] && DFS(board, word, i, j, 0))
-                    return true;
-        
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(board[i][j]==word[0]){
+                       if(helper(i,j,m,n,board,word,0))return true;
+                }
+             
+            }
+        }
         return false;
     }
 };
